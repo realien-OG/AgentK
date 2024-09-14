@@ -5,10 +5,46 @@ import string
 import secrets
 import traceback
 
+
+
+
+
+print("Importing langgraph")
+import langgraph
+print(f"Langgraph version: {langgraph.__version__}")
+print("Langgraph imported successfully")
+
+print("Importing langgraph.checkpoint.base")
+from langgraph.checkpoint import base
+print("Contents of langgraph.checkpoint.base:")
+print(dir(base))
+
+print("Defining and monkey-patching WRITES_IDX_MAP")
+ERROR = "ERROR"
+WRITES_IDX_MAP = {ERROR: -1}
+setattr(langgraph.checkpoint.base, 'WRITES_IDX_MAP', WRITES_IDX_MAP)
+print(f"WRITES_IDX_MAP defined and monkey-patched: {WRITES_IDX_MAP}")
+
+print("Importing langgraph.checkpoint.sqlite")
+from langgraph.checkpoint import sqlite
+print("Contents of langgraph.checkpoint.sqlite:")
+print(dir(sqlite))
+
+print("Attempting to import SqliteSaver")
 from langgraph.checkpoint.sqlite import SqliteSaver
+print(f"SqliteSaver: {SqliteSaver}")
 
 conn = sqlite3.connect("checkpoints.sqlite", check_same_thread=False)
+print(f"SQLite connection: {conn}")
+
 checkpointer = SqliteSaver(conn)
+print(f"Checkpointer: {checkpointer}")
+
+
+# Rest of the file remains unchanged
+
+
+
 
 def all_tool_functions():
     tools = list_tools()

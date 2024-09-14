@@ -1,4 +1,4 @@
-langgraph==0.2.0
+langgraph==0.1.19
 langchain-community==0.2.11
 langgraph-checkpoint==1.0.1
 langchain-openai
